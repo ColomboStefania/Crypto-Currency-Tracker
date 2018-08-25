@@ -6,7 +6,7 @@ export const GET_CURRENCY = 'GET_CURRENCY';
 
 
 export const getTopCurrencies = () => dispatch => {
-  request.get(`${baseUrl}/?limit=10`).then(response => {
+  request.get(`${baseUrl}/?limit=10&sort=market_cap`).then(response => {
     dispatch({
       type: GET_TOPCURRENCY,
       payload: response.body.data

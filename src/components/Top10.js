@@ -13,11 +13,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import compose from 'recompose/compose';
 import { getTopCurrencies } from '../actions/currencies';
 
-let counter = 0;
-function createData(name, MarketCap, Price, Volume) {
-  counter += 1;
-  return { id: counter, name, MarketCap, Price, Volume };
-}
+
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -30,7 +26,7 @@ function desc(a, b, orderBy) {
 }
 
 function getSorting(order, orderBy) {
-  return order === 'desc'
+  return order === 'asc'
     ? (a, b) => desc(a, b, orderBy)
     : (a, b) => -desc(a, b, orderBy);
 }
@@ -113,7 +109,7 @@ const styles = theme => ({
 class Top10 extends React.Component {
   state = {
     order: 'asc',
-    orderBy: 'marketCap',
+    orderBy: 'MarketCap',
     selected: [],
 
     topCurrencies: null,
@@ -124,7 +120,7 @@ class Top10 extends React.Component {
   UNSAFE_componentWillMount() {
     this.interval = setInterval(() => {
     this.props.getTopCurrencies();
-  }, 3000);
+  }, 1000);
   }
 
   componentWillUnmount() {
@@ -162,10 +158,8 @@ class Top10 extends React.Component {
     const { classes } = this.props;
     const {
       topCurrencies,
-      data,
       order,
       orderBy,
-      selected,
       rowsPerPage,
       page,
     } = this.state;
@@ -186,7 +180,6 @@ class Top10 extends React.Component {
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onRequestSort={this.handleRequestSort}

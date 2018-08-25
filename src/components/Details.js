@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import classNames from 'classnames';
+
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -11,7 +11,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
@@ -36,7 +35,7 @@ function desc(a, b, orderBy) {
 }
 
 function getSorting(order, orderBy) {
-  return order === 'desc'
+  return order === 'asc'
     ? (a, b) => desc(a, b, orderBy)
     : (a, b) => -desc(a, b, orderBy);
 }
@@ -64,7 +63,6 @@ class EnhancedTableHead extends React.Component {
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox" />
           {rows.map(row => {
             return (
               <TableCell
@@ -102,36 +100,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-let EnhancedTableToolbar = props => {
-  const { numSelected, classes } = props;
 
-  return (
-    <Toolbar
-      className={classNames(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
-    >
-      <div className={classes.title}>
-        {numSelected > 0 ? (
-          <Typography color="inherit" variant="subheading">
-            {numSelected} selected
-          </Typography>
-        ) : (
-          <Typography variant="title" id="tableTitle">
-            Your favorite Currencies
-          </Typography>
-        )}
-      </div>
-      <div className={classes.spacer} />
-      <div className={classes.actions} />
-    </Toolbar>
-  );
-};
-
-EnhancedTableToolbar.propTypes = {
-  classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
-};
 const styles = theme => ({
   root: {
     width: '80%',
@@ -154,18 +123,12 @@ const styles = theme => ({
   },
 });
 
-EnhancedTableToolbar = compose(
-  withStyles(styles),
-  connect(
-    null,
-    // { deleteCurrency },
-  ),
-)(EnhancedTableToolbar);
+
 
 class EnhancedTable extends React.Component {
   state = {
     order: 'asc',
-    orderBy: 'MarketCap',
+    orderBy: 'marketCap',
 
     page: 0,
     rowsPerPage: 5,
