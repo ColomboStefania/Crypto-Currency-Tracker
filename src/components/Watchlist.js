@@ -32,7 +32,7 @@ class Watchlist extends React.Component {
   UNSAFE_componentWillMount() {
     this.interval = setInterval(() => {
     this.props.getAllCurrencies();
-  }, 3000);
+  }, 1000);
   }
   
   

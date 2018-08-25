@@ -63,6 +63,7 @@ class EnhancedTableHead extends React.Component {
     return (
       <TableHead>
         <TableRow>
+          <TableCell padding="checkbox" />
           {rows.map(row => {
             return (
               <TableCell
@@ -128,7 +129,7 @@ const styles = theme => ({
 class EnhancedTable extends React.Component {
   state = {
     order: 'asc',
-    orderBy: 'marketCap',
+    orderBy: 'MarketCap',
 
     page: 0,
     rowsPerPage: 5,
