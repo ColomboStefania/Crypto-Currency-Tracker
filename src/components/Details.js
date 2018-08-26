@@ -101,7 +101,6 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-
 const styles = theme => ({
   root: {
     width: '80%',
@@ -123,8 +122,6 @@ const styles = theme => ({
     fontSize: 90,
   },
 });
-
-
 
 class EnhancedTable extends React.Component {
   state = {
@@ -179,7 +176,7 @@ class EnhancedTable extends React.Component {
 
         parseInt(obj.quotes.USD.volume_24h, 10),
       ),
-    )
+    );
 
     const emptyRows =
       rowsPerPage -
@@ -197,7 +194,6 @@ class EnhancedTable extends React.Component {
       <Paper className={classes.root}>
         <Tooltip title="Delete all list ">
           <IconButton aria-label="Delete">
-           
             <DeleteIconOutlined
               color="primary"
               onClick={() => {
@@ -242,15 +238,21 @@ class EnhancedTable extends React.Component {
                       <TableCell component="th" scope="row" padding="none">
                         {n.name}
                       </TableCell>
-                      <TableCell numeric>{n.MarketCap.toFixed(2).replace(
+                      <TableCell numeric>
+                        {n.MarketCap.toFixed(2).replace(
                           /\d(?=(\d{3})+\.)/g,
                           '$&,',
-                        )}</TableCell>
-                      <TableCell numeric>{n.Price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</TableCell>
-                      <TableCell numeric>{n.Volume.toFixed(2).replace(
+                        )}
+                      </TableCell>
+                      <TableCell numeric>
+                        {n.Price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+                      </TableCell>
+                      <TableCell numeric>
+                        {n.Volume.toFixed(2).replace(
                           /\d(?=(\d{3})+\.)/g,
                           '$&,',
-                        )}</TableCell>
+                        )}
+                      </TableCell>
                     </TableRow>
                   );
                 })}
