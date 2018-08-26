@@ -32,7 +32,7 @@ class Watchlist extends React.Component {
   UNSAFE_componentWillMount() {
     this.interval = setInterval(() => {
     this.props.getAllCurrencies();
-  }, 1000);
+  }, 3000);
   }
   
   
@@ -40,7 +40,7 @@ class Watchlist extends React.Component {
     clearInterval(this.interval);
   }
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     
     this.setState({ allCurrencies: newProps.allCurrencies });
   }
@@ -55,7 +55,20 @@ class Watchlist extends React.Component {
     const { classes } = this.props;
     const { allCurrencies } = this.state;
 
-    if (!allCurrencies || allCurrencies.length === 0) return <h1>   Loading...</h1>;
+    if (!allCurrencies || allCurrencies.length === 0) return <div id="loading">
+    <h1>Loading...</h1>
+        <video id="background-video" loop autoPlay>
+            <source
+              src="https://media.istockphoto.com/videos/crypto-currency-concept-video-id908960188"
+              type="video/mp4"
+            />
+            <source
+              src="https://media.istockphoto.com/videos/crypto-currency-concept-video-id908960188"
+              type="video/ogg"
+            />
+            Your browser does not support the video tag.
+          </video>  
+            </div>
 
     const currencyOptions = allCurrencies.map(cur => ({
       value: cur.name,

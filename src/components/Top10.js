@@ -110,8 +110,6 @@ class Top10 extends React.Component {
   state = {
     order: 'asc',
     orderBy: 'MarketCap',
-    selected: [],
-
     topCurrencies: null,
     page: 0,
     rowsPerPage: 10,
@@ -120,15 +118,14 @@ class Top10 extends React.Component {
   UNSAFE_componentWillMount() {
     this.interval = setInterval(() => {
     this.props.getTopCurrencies();
-  }, 1000);
+  }, 3000);
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     clearInterval(this.interval);
   }
 
-  componentWillReceiveProps(newProps) {
-   
+  UNSAFE_componentWillReceiveProps(newProps) {
     this.setState({ topCurrencies: newProps.topCurrencies });
   }
 
@@ -164,7 +161,20 @@ class Top10 extends React.Component {
       page,
     } = this.state;
 
-    if (!topCurrencies) return <h1>   Loading...</h1>;
+    if (!topCurrencies) return <div id="loading">
+    <h1>Loading...</h1>
+        <video id="background-video" loop autoPlay>
+            <source
+              src="https://media.istockphoto.com/videos/the-concept-of-digitalization-of-information-flow-moving-through-rack-video-id884015072"
+              type="video/mp4"
+            />
+            <source
+              src="https://media.istockphoto.com/videos/the-concept-of-digitalization-of-information-flow-moving-through-rack-video-id884015072"
+              type="video/ogg"
+            />
+            Your browser does not support the video tag.
+          </video>  
+            </div>
 
     const formattedData = this.getFormattedData(topCurrencies)
 
